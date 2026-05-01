@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { api, API_BASE_URL } from '@/lib/api'
+import { api, getImageUrl } from '@/lib/api'
 import { Image as ImageIcon, Upload, Loader2, X, RefreshCw } from 'lucide-react'
 
 interface ImageUploadProps {
@@ -29,13 +29,9 @@ export default function ImageUpload({ currentImage, onUploadSuccess, label }: Im
     setIsUploading(true)
     try {
       const { url } = await api.uploadImage(file)
-      // Normalize URL (make it absolute for the frontend if needed)
-      // Since backend serves at http://127.0.0.1:8000/uploads/filename
-      // And we handle API_BASE_URL correctly in lib/api.ts
-      // We should probably store the relative path and prepend the base URL during render
-      // But for simplicity let's see how it was handled before.
-      onUploadSuccess(`${API_BASE_URL}${url}`)
-      setPreview(`${API_BASE_URL}${url}`)
+      // Now we emit the relative URL and use getImageUrl for displaying it
+      onUploadSuccess(url)
+      setPreview(url)
     } catch (error) {
       alert('Failed to upload image')
       setPreview(currentImage)
@@ -51,7 +47,7 @@ export default function ImageUpload({ currentImage, onUploadSuccess, label }: Im
         <div className="w-full aspect-video rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center relative">
           {preview ? (
             <img 
-              src={preview} 
+              src={getImageUrl(preview)} 
               alt="Preview" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
             />

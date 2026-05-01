@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { api, AboutData } from '@/lib/api'
+import { api, AboutData, getImageUrl } from '@/lib/api'
 
 export default function About() {
   const [about, setAbout] = useState<AboutData | null>(null)
@@ -81,7 +81,7 @@ export default function About() {
           <div className="animate-slide-in-right order-1 md:order-2 flex justify-center">
             <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl border-2 border-accent/30 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-glow group bg-muted">
               <Image
-                src={about.image_url}
+                src={getImageUrl(about.image_url)}
                 alt={`${about.name} - ${about.title}`}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out"

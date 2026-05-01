@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ExternalLink, Github } from 'lucide-react'
-import { api, Project } from '@/lib/api'
+import { api, Project, getImageUrl } from '@/lib/api'
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -49,7 +49,7 @@ export default function Projects() {
               {/* Project Image */}
               <div className="relative h-48 overflow-hidden bg-card">
                 <Image
-                  src={project.image}
+                  src={getImageUrl(project.image)}
                   alt={project.title}
                   fill
                   className="object-cover group-hover:scale-125 transition-transform duration-500 ease-out"
@@ -115,7 +115,7 @@ export default function Projects() {
                 {/* Project Thumbnail */}
                 <div className="relative h-32 overflow-hidden bg-card">
                   <Image
-                    src={project.image}
+                    src={getImageUrl(project.image)}
                     alt={project.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"

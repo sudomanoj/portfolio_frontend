@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { api, Project } from '@/lib/api'
+import { api, Project, getImageUrl } from '@/lib/api'
 import { Plus, Trash2, Edit2, Loader2, Save, X, Github, ExternalLink, Image as ImageIcon } from 'lucide-react'
 import ImageUpload from '@/components/admin/image-upload'
 
@@ -216,7 +216,7 @@ export default function ProjectsAdminPage() {
                 {/* Preview Image */}
                 <div className="aspect-video bg-white/5 relative overflow-hidden">
                   {project.image ? (
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img src={getImageUrl(project.image)} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-700">
                       <ImageIcon size={48} />

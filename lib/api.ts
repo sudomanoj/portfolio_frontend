@@ -1,5 +1,18 @@
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
+export const getImageUrl = (url?: string) => {
+  if (!url) return ''
+  if (url.startsWith('data:')) return url
+  if (url.startsWith('http://127.0.0.1:8000')) {
+    return url.replace('http://127.0.0.1:8000', API_BASE_URL)
+  }
+  if (url.startsWith('http://localhost:8000')) {
+    return url.replace('http://localhost:8000', API_BASE_URL)
+  }
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return `${API_BASE_URL}${url}`
+}
+
 export interface Experience {
   id?: number
   company: string
